@@ -4,8 +4,7 @@ An interactive playground built with **PixiJS v8** and **TypeScript** where colo
 
 ## Live Demo
 
-> **[https://yourusername.github.io/pixi-shapes/](https://yourusername.github.io/pixi-shapes/)**
-> *(update URL after deploying to GitHub Pages)*
+> **[https://maxkurylenko1.github.io/pixi-shapes/](https://maxkurylenko1.github.io/pixi-shapes/)**
 
 ## Features
 
@@ -19,13 +18,13 @@ An interactive playground built with **PixiJS v8** and **TypeScript** where colo
 
 ## Stack
 
-| Tool | Role |
-|---|---|
-| [PixiJS v8](https://pixijs.com/) | WebGL canvas rendering |
-| [TypeScript](https://www.typescriptlang.org/) | Strict typing |
-| [Vite](https://vitejs.dev/) | Dev server + build |
-| ESLint + Prettier | Code quality |
-| GitHub Pages | Hosting |
+| Tool                                          | Role                   |
+| --------------------------------------------- | ---------------------- |
+| [PixiJS v8](https://pixijs.com/)              | WebGL canvas rendering |
+| [TypeScript](https://www.typescriptlang.org/) | Strict typing          |
+| [Vite](https://vitejs.dev/)                   | Dev server + build     |
+| ESLint + Prettier                             | Code quality           |
+| GitHub Pages                                  | Hosting                |
 
 ## Getting Started
 
@@ -108,10 +107,12 @@ The project follows **MVC + OOP**:
 The project includes a GitHub Actions workflow that deploys to GitHub Pages on every push to `main`.
 
 **Setup:**
-1. Go to *Settings → Pages → Source*: select **GitHub Actions**
+
+1. Go to _Settings → Pages → Source_: select **GitHub Actions**
 2. Push to `main` — the workflow builds and deploys automatically
 
 Alternatively deploy manually:
+
 ```bash
 npm run build
 # Upload dist/ to your static hosting
@@ -119,7 +120,17 @@ npm run build
 
 ## Screenshots
 
-*(Add screenshots to `public/screenshots/` and reference them here)*
+**Few shapes — low spawn rate (1/sec), gravity 2:**
+
+![Few shapes](public/screenshots/image.png)
+
+**Many shapes — high spawn rate (15/sec), gravity 5:**
+
+![Many shapes](public/screenshots/image1.png)
+
+**All shape types — spawn rate 5/sec, gravity 0.5:**
+
+![All shape types](public/screenshots/image2.png)
 
 ---
 
