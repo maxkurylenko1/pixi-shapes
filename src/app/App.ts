@@ -3,6 +3,7 @@ import { GameView } from '../view/GameView';
 import { GameModel } from '../model/GameModel';
 import { GameController } from '../controller/GameController';
 import { InputController } from '../controller/InputController';
+import { HudView } from '../view/HudView';
 import { AREA_WIDTH, AREA_HEIGHT } from '../utils/constants';
 import { createShape } from '../domain/ShapeFactory';
 import { ShapeType } from '../model/types';
@@ -13,6 +14,7 @@ export class App {
   protected model!: GameModel;
   protected controller!: GameController;
   protected inputController!: InputController;
+  protected hudView!: HudView;
 
   async init(): Promise<void> {
     this.pixiApp = new Application();
@@ -30,7 +32,8 @@ export class App {
 
     this.model = new GameModel();
     this.view = new GameView(this.pixiApp);
-    this.controller = new GameController(this.model, this.view);
+    this.hudView = new HudView();
+    this.controller = new GameController(this.model, this.view, this.hudView);
     this.inputController = new InputController(this.model, this.view);
 
     // TEST: 3 static shapes — removed in Stage 12
