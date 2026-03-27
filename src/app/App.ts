@@ -1,10 +1,14 @@
 import { Application } from 'pixi.js';
 import { GameView } from '../view/GameView';
+import { GameModel } from '../model/GameModel';
 import { AREA_WIDTH, AREA_HEIGHT } from '../utils/constants';
+import { createShape } from '../domain/ShapeFactory';
+import { ShapeType } from '../model/types';
 
 export class App {
-  private pixiApp!: Application;
+  protected pixiApp!: Application;
   protected view!: GameView;
+  protected model!: GameModel;
 
   async init(): Promise<void> {
     this.pixiApp = new Application();
@@ -20,6 +24,18 @@ export class App {
     if (!container) throw new Error('#canvas-container not found');
     container.appendChild(this.pixiApp.canvas);
 
+    this.model = new GameModel();
     this.view = new GameView(this.pixiApp);
+
+    // TEST: 3 static shapes — removed in Stage 12
+    const testShapes = [
+      createShape(ShapeType.Triangle, 200, 150),
+      createShape(ShapeType.Circle, 400, 300),
+      createShape(ShapeType.Hexagon, 600, 200),
+    ];
+    for (const shape of testShapes) {
+      this.model.addShape(shape);
+    }
+    this.view.syncShapes(this.model);
   }
 }
