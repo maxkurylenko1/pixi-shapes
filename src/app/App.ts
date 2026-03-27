@@ -1,6 +1,7 @@
 import { Application } from 'pixi.js';
 import { GameView } from '../view/GameView';
 import { GameModel } from '../model/GameModel';
+import { GameController } from '../controller/GameController';
 import { AREA_WIDTH, AREA_HEIGHT } from '../utils/constants';
 import { createShape } from '../domain/ShapeFactory';
 import { ShapeType } from '../model/types';
@@ -9,6 +10,7 @@ export class App {
   protected pixiApp!: Application;
   protected view!: GameView;
   protected model!: GameModel;
+  protected controller!: GameController;
 
   async init(): Promise<void> {
     this.pixiApp = new Application();
@@ -26,6 +28,7 @@ export class App {
 
     this.model = new GameModel();
     this.view = new GameView(this.pixiApp);
+    this.controller = new GameController(this.model, this.view);
 
     // TEST: 3 static shapes — removed in Stage 12
     const testShapes = [
@@ -37,5 +40,7 @@ export class App {
       this.model.addShape(shape);
     }
     this.view.syncShapes(this.model);
+
+    this.controller.start();
   }
 }
