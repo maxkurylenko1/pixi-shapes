@@ -1,4 +1,4 @@
-import { Graphics, Container } from 'pixi.js';
+import { Graphics, Container, FederatedPointerEvent } from 'pixi.js';
 import { Shape } from '../domain/Shape';
 import { PolygonShape } from '../domain/shapes/PolygonShape';
 import { CircleShape } from '../domain/shapes/CircleShape';
@@ -45,9 +45,14 @@ function drawEllipse(shape: EllipseShape, gfx: Graphics): void {
 export class ShapeRenderMap {
   private map = new Map<string, Graphics>();
   readonly container: Container;
+  private onShapeClick: ((id: string) => void) | null = null;
 
   constructor(container: Container) {
     this.container = container;
+  }
+
+  setShapeClickHandler(handler: (id: string) => void): void {
+    this.onShapeClick = handler;
   }
 
   add(shape: Shape): Graphics {
@@ -55,6 +60,15 @@ export class ShapeRenderMap {
     drawShape(shape, gfx);
     gfx.x = shape.x;
     gfx.y = shape.y;
+
+    gfx.eventMode = 'static';
+    gfx.cursor = 'pointer';
+    const id = shape.id;
+    gfx.on('pointerdown', (e: FederatedPointerEvent) => {
+      e.stopPropagation();
+      this.onShapeClick?.(id);
+    });
+
     this.container.addChild(gfx);
     this.map.set(shape.id, gfx);
     return gfx;
