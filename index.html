@@ -7,7 +7,42 @@
     <link rel="stylesheet" href="/styles/main.css" />
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div id="hud">
+        <div class="hud-item">
+          <span class="hud-label">Shapes:</span>
+          <span id="hud-count">0</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">Area:</span>
+          <span id="hud-area">0</span>
+          <span class="hud-unit">px²</span>
+        </div>
+      </div>
+
+      <div id="canvas-container"></div>
+
+      <div id="controls">
+        <div class="control-group">
+          <span class="control-label">Spawn Rate</span>
+          <div class="control-row">
+            <button class="ctrl-btn" id="spawn-dec">−</button>
+            <span id="spawn-value">1</span>
+            <span class="ctrl-unit">/ sec</span>
+            <button class="ctrl-btn" id="spawn-inc">+</button>
+          </div>
+        </div>
+        <div class="control-group">
+          <span class="control-label">Gravity</span>
+          <div class="control-row">
+            <button class="ctrl-btn" id="gravity-dec">−</button>
+            <span id="gravity-value">2</span>
+            <button class="ctrl-btn" id="gravity-inc">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
