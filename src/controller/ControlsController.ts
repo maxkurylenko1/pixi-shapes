@@ -22,7 +22,14 @@ export class ControlsController {
     const gravityIncBtn = document.getElementById('gravity-inc');
     const gravityDecBtn = document.getElementById('gravity-dec');
 
-    if (!spawnValueEl || !gravityValueEl || !spawnIncBtn || !spawnDecBtn || !gravityIncBtn || !gravityDecBtn) {
+    if (
+      !spawnValueEl ||
+      !gravityValueEl ||
+      !spawnIncBtn ||
+      !spawnDecBtn ||
+      !gravityIncBtn ||
+      !gravityDecBtn
+    ) {
       throw new Error('Control elements not found in DOM');
     }
 
