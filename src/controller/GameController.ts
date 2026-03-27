@@ -1,17 +1,21 @@
 import { Ticker } from 'pixi.js';
 import { GameModel } from '../model/GameModel';
 import { GameView } from '../view/GameView';
+import { HudView } from '../view/HudView';
 import { createRandomShape } from '../domain/ShapeFactory';
+import { calculateArea } from '../domain/areaCalculator';
 
 export class GameController {
   private model: GameModel;
   private view: GameView;
+  private hud: HudView;
   private ticker: Ticker;
   private spawnAccumulator = 0; // milliseconds since last spawn
 
-  constructor(model: GameModel, view: GameView) {
+  constructor(model: GameModel, view: GameView, hud: HudView) {
     this.model = model;
     this.view = view;
+    this.hud = hud;
     this.ticker = view.app.ticker;
   }
 
@@ -58,13 +62,18 @@ export class GameController {
 
     // ── Render sync ──────────────────────────────────────
     this.view.syncShapes(this.model);
+
+    // ── HUD update ───────────────────────────────────────
+    const shapes = this.model.getShapes();
+    const totalArea = shapes.reduce((sum, s) => sum + calculateArea(s), 0);
+    this.hud.update(shapes.length, totalArea);
   }
 
   private spawnShapeAtTop(): void {
     const bounds = this.view.getAreaBounds();
-    const shape = createRandomShape(0, 0); // temp coords
+    const shape = createRandomShape(0, 0);
     const x = shape.radius + Math.random() * (bounds.width - shape.radius * 2);
-    const y = -shape.radius; // just above the top edge
+    const y = -shape.radius;
     shape.x = x;
     shape.y = y;
     this.model.addShape(shape);
