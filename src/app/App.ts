@@ -6,8 +6,6 @@ import { InputController } from '../controller/InputController';
 import { ControlsController } from '../controller/ControlsController';
 import { HudView } from '../view/HudView';
 import { AREA_WIDTH, AREA_HEIGHT } from '../utils/constants';
-import { createShape } from '../domain/ShapeFactory';
-import { ShapeType } from '../model/types';
 
 export class App {
   protected pixiApp!: Application;
@@ -38,17 +36,6 @@ export class App {
     this.controller = new GameController(this.model, this.view, this.hudView);
     this.inputController = new InputController(this.model, this.view);
     this.controlsController = new ControlsController(this.model);
-
-    // TEST: 3 static shapes — removed in Stage 12
-    const testShapes = [
-      createShape(ShapeType.Triangle, 200, 150),
-      createShape(ShapeType.Circle, 400, 300),
-      createShape(ShapeType.Hexagon, 600, 200),
-    ];
-    for (const shape of testShapes) {
-      this.model.addShape(shape);
-    }
-    this.view.syncShapes(this.model);
 
     this.controller.start();
   }
