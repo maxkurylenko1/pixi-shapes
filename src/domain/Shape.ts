@@ -10,7 +10,6 @@ export abstract class Shape {
   color: number;
   velocityY: number = 0;
 
-  /** Bounding radius — used for edge clamping on spawn */
   abstract readonly radius: number;
 
   constructor(type: ShapeType, x: number, y: number, color: number) {

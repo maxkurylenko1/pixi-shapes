@@ -16,7 +16,6 @@ body {
   min-height: 100vh;
 }
 
-/* ── App wrapper ─────────────────────────────────────── */
 #app {
   position: relative;
   display: flex;
@@ -25,7 +24,6 @@ body {
   gap: 16px;
 }
 
-/* ── Canvas container ────────────────────────────────── */
 #canvas-container {
   position: relative;
   border: 2px solid #444;
@@ -38,7 +36,6 @@ body {
   display: block;
 }
 
-/* ── HUD overlay ─────────────────────────────────────── */
 #hud {
   position: absolute;
   top: 8px;
@@ -81,14 +78,13 @@ body {
   color: #888;
 }
 
-/* ── Controls panel ──────────────────────────────────── */
 #controls {
   display: flex;
-  gap: 32px;
+  gap: 24px;
   background: rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  padding: 12px 24px;
+  padding: 12px 20px;
 }
 
 .control-group {
@@ -108,7 +104,7 @@ body {
 .control-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .ctrl-btn {

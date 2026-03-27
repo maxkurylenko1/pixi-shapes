@@ -10,7 +10,7 @@ export class GameController {
   private view: GameView;
   private hud: HudView;
   private ticker: Ticker;
-  private spawnAccumulator = 0; // milliseconds since last spawn
+  private spawnAccumulator = 0;
 
   constructor(model: GameModel, view: GameView, hud: HudView) {
     this.model = model;
@@ -28,12 +28,11 @@ export class GameController {
   }
 
   private onTick(ticker: Ticker): void {
-    const dt = ticker.deltaMS / 1000; // seconds
+    const dt = ticker.deltaMS / 1000;
     const gravity = this.model.config.gravity;
     const bounds = this.view.getAreaBounds();
     const toRemove: string[] = [];
 
-    // ── Physics ──────────────────────────────────────────
     for (const shape of this.model.getShapes()) {
       shape.velocityY += gravity * dt * 60;
       shape.y += shape.velocityY * dt;
@@ -48,7 +47,6 @@ export class GameController {
       this.view.renderMap.remove(id);
     }
 
-    // ── Auto-spawn ───────────────────────────────────────
     const spawnRate = this.model.config.spawnRate;
     if (spawnRate > 0) {
       this.spawnAccumulator += ticker.deltaMS;
@@ -58,12 +56,13 @@ export class GameController {
         this.spawnAccumulator -= interval;
         this.spawnShapeAtTop();
       }
+    } else {
+      // reset so there's no burst when rate is turned back on
+      this.spawnAccumulator = 0;
     }
 
-    // ── Render sync ──────────────────────────────────────
     this.view.syncShapes(this.model);
 
-    // ── HUD update ───────────────────────────────────────
     const shapes = this.model.getShapes();
     const totalArea = shapes.reduce((sum, s) => sum + calculateArea(s), 0);
     this.hud.update(shapes.length, totalArea);
